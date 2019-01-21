@@ -7,63 +7,89 @@
 //
 
 #import "ViewController.h"
+#import "PinchZoomViewController.h"
 
 @interface ViewController () <UIScrollViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
+
 @end
 
 @implementation ViewController
+
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    PinchZoomViewController* pinchZoomViewController = [segue destinationViewController];
+    
+    UIImageView* senderImageView = sender;
+    pinchZoomViewController.senderImage = senderImageView.image;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    for(int i = 0; i < self.pageControl.numberOfPages; i++) {
+        if(scrollView.bounds.origin.x >= self.view.frame.size.width*i &&
+           scrollView.bounds.origin.x < self.view.frame.size.width*(i+1)) {
+            self.pageControl.currentPage = i;
+            break;
+        }
+    }
+    
+}
+
+- (void) pageClicked:(UIPageControl *)sender {
+    [self.scrollView scrollRectToVisible:CGRectMake(self.view.frame.size.width*sender.currentPage, 0, self.view.frame.size.width, self.scrollView.frame.size.height) animated:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.scrollView.delegate = self;
-    
-    UIImageView* firstImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    firstImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.scrollView addSubview:firstImageView];
-    
-    firstImageView.image = [UIImage imageNamed:@"Lighthouse-in-Field"];
-    firstImageView.contentMode = UIViewContentModeScaleAspectFit;
-    
-    [NSLayoutConstraint constraintWithItem:firstImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0].active = YES;
-    [NSLayoutConstraint constraintWithItem:firstImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0].active = YES;
-    [NSLayoutConstraint constraintWithItem:firstImageView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0].active = YES;
-    [NSLayoutConstraint constraintWithItem:firstImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0].active = YES;
-    [NSLayoutConstraint constraintWithItem:firstImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0].active = YES;
-    
-    UIImageView* secondImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    secondImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.scrollView addSubview:secondImageView];
-    
-    secondImageView.image = [UIImage imageNamed:@"Lighthouse-night"];
-    secondImageView.contentMode = UIViewContentModeScaleAspectFit;
-    
-    [NSLayoutConstraint constraintWithItem:secondImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0].active = YES;
-    [NSLayoutConstraint constraintWithItem:secondImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0].active = YES;
-    [NSLayoutConstraint constraintWithItem:secondImageView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:firstImageView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0].active = YES;
-    [NSLayoutConstraint constraintWithItem:secondImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0].active = YES;
-    [NSLayoutConstraint constraintWithItem:secondImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0].active = YES;
-    
-    UIImageView* thirdImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    thirdImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.scrollView addSubview:thirdImageView];
-    
-    thirdImageView.image = [UIImage imageNamed:@"Lighthouse"];
-    thirdImageView.contentMode = UIViewContentModeScaleAspectFit;
-    
-    [NSLayoutConstraint constraintWithItem:thirdImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0].active = YES;
-    [NSLayoutConstraint constraintWithItem:thirdImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0].active = YES;
-    [NSLayoutConstraint constraintWithItem:thirdImageView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:secondImageView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0].active = YES;
-    [NSLayoutConstraint constraintWithItem:thirdImageView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0].active = YES;
-    [NSLayoutConstraint constraintWithItem:thirdImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0].active = YES;
-    [NSLayoutConstraint constraintWithItem:thirdImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0].active = YES;
-    
     self.scrollView.pagingEnabled = YES;
     
-    [self.view addSubview:self.scrollView];
+    NSArray<NSString *>* arrayOfImages = @[@"Lighthouse-in-Field", @"Lighthouse-night", @"Lighthouse", @"home-lighthouse", @"Wawatan_Lighthouse_2010"];
     
+    self.pageControl.numberOfPages = arrayOfImages.count;
+    [self.pageControl addTarget:self action:@selector(pageClicked:) forControlEvents:UIControlEventValueChanged];
+    
+    NSMutableArray<UIImageView *>* arrayOfImageViews = [NSMutableArray array];
+    for(int i = 0; i < arrayOfImages.count; i++) {
+        UIImageView* imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        imageView.translatesAutoresizingMaskIntoConstraints = NO;
+        imageView.image = [UIImage imageNamed:arrayOfImages[i]];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        imageView.userInteractionEnabled = YES;
+        
+        [self.scrollView addSubview:imageView];
+        
+        UITapGestureRecognizer* tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
+        [imageView addGestureRecognizer:tapGesture];
+        
+        [NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0].active = YES;
+        [NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0].active = YES;
+        [NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0].active = YES;
+        [NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0].active = YES;
+        [arrayOfImageViews addObject: imageView];
+    }
+    
+    for(int i = 0; i < arrayOfImageViews.count; i++) {
+        if(i==0) {
+            [NSLayoutConstraint constraintWithItem:arrayOfImageViews[i] attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0].active = YES;
+        } else {
+            [NSLayoutConstraint constraintWithItem:arrayOfImageViews[i] attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:arrayOfImageViews[i-1] attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0].active = YES;
+        }
+        if(i==arrayOfImageViews.count-1) {
+            [NSLayoutConstraint constraintWithItem:arrayOfImageViews[i] attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0].active = YES;
+        }
+    }
+    
+}
+
+- (void) imageTapped:(UITapGestureRecognizer *)gesture {
+    [self performSegueWithIdentifier:@"detailedViewSegue" sender:gesture.view];
 }
 
 

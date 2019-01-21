@@ -16,6 +16,8 @@
 
 @end
 
+
+
 @implementation PinchZoomViewController
 
 - (void)viewDidLoad {
@@ -28,21 +30,25 @@
     firstImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.scrollView addSubview:firstImageView];
     
-    firstImageView.image = [UIImage imageNamed:@"Lighthouse-in-Field"];
+    firstImageView.image = self.senderImage;
     
     [NSLayoutConstraint constraintWithItem:firstImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0].active = YES;
     [NSLayoutConstraint constraintWithItem:firstImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0].active = YES;
     [NSLayoutConstraint constraintWithItem:firstImageView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0].active = YES;
     [NSLayoutConstraint constraintWithItem:firstImageView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0].active = YES;
     
-    self.scrollView.minimumZoomScale = 0.25;
+    self.scrollView.minimumZoomScale = 0.1;
     self.scrollView.maximumZoomScale = 3.0;
     self.firstImageView = firstImageView;
+    
+    [self.scrollView zoomToRect:CGRectMake(0, 0, firstImageView.image.size.width, firstImageView.image.size.height) animated:YES];
+    
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     return self.firstImageView;
 }
+
 
 /*
 #pragma mark - Navigation

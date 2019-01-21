@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PinchZoomViewController : UIViewController
 
+@property (nonatomic) UIImage* senderImage;
+
 @end
 
 NS_ASSUME_NONNULL_END
