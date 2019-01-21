@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pnd-RH-4x5">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,16 +13,59 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ki5-bM-d8w">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="ki5-bM-d8w" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0mJ-vx-PnD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ki5-bM-d8w" secondAttribute="trailing" id="10a-nc-UeW"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ki5-bM-d8w" secondAttribute="bottom" id="I8L-g2-vg7"/>
+                            <constraint firstItem="ki5-bM-d8w" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="NNp-vu-33i"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="scrollView" destination="ki5-bM-d8w" id="NtG-UP-X9k"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Pinch Zoom View Controller-->
+        <scene sceneID="BA4-4Z-LWy">
+            <objects>
+                <viewController id="pnd-RH-4x5" customClass="PinchZoomViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="59D-Ft-sDE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G9B-ML-KMT">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="wUZ-DW-vRH" firstAttribute="bottom" secondItem="G9B-ML-KMT" secondAttribute="bottom" id="VPD-qo-VCa"/>
+                            <constraint firstItem="G9B-ML-KMT" firstAttribute="leading" secondItem="wUZ-DW-vRH" secondAttribute="leading" id="lq3-KV-aay"/>
+                            <constraint firstItem="wUZ-DW-vRH" firstAttribute="trailing" secondItem="G9B-ML-KMT" secondAttribute="trailing" id="mYL-Lk-p5g"/>
+                            <constraint firstItem="G9B-ML-KMT" firstAttribute="top" secondItem="wUZ-DW-vRH" secondAttribute="top" id="u3Y-ja-p3H"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wUZ-DW-vRH"/>
+                    </view>
+                    <connections>
+                        <outlet property="scrollView" destination="G9B-ML-KMT" id="VvS-rN-Tyc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LZt-q4-CfO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="59" y="756"/>
         </scene>
     </scenes>
 </document>

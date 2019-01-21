@@ -15,6 +15,7 @@
 		C87E36D221F6690700A854F6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C87E36D121F6690700A854F6 /* main.m */; };
 		C87E36DC21F6690700A854F6 /* ScrollViewImageGalleriesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C87E36DB21F6690700A854F6 /* ScrollViewImageGalleriesTests.m */; };
 		C87E36E721F6690700A854F6 /* ScrollViewImageGalleriesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C87E36E621F6690700A854F6 /* ScrollViewImageGalleriesUITests.m */; };
+		C87E36F621F66E0500A854F6 /* PinchZoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C87E36F521F66E0500A854F6 /* PinchZoomViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		C87E36E221F6690700A854F6 /* ScrollViewImageGalleriesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScrollViewImageGalleriesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C87E36E621F6690700A854F6 /* ScrollViewImageGalleriesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrollViewImageGalleriesUITests.m; sourceTree = "<group>"; };
 		C87E36E821F6690700A854F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C87E36F421F66E0500A854F6 /* PinchZoomViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PinchZoomViewController.h; sourceTree = "<group>"; };
+		C87E36F521F66E0500A854F6 /* PinchZoomViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PinchZoomViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +108,8 @@
 				C87E36C321F6690600A854F6 /* AppDelegate.m */,
 				C87E36C521F6690600A854F6 /* ViewController.h */,
 				C87E36C621F6690600A854F6 /* ViewController.m */,
+				C87E36F421F66E0500A854F6 /* PinchZoomViewController.h */,
+				C87E36F521F66E0500A854F6 /* PinchZoomViewController.m */,
 				C87E36C821F6690600A854F6 /* Main.storyboard */,
 				C87E36CB21F6690700A854F6 /* Assets.xcassets */,
 				C87E36CD21F6690700A854F6 /* LaunchScreen.storyboard */,
@@ -264,6 +269,7 @@
 			files = (
 				C87E36C721F6690600A854F6 /* ViewController.m in Sources */,
 				C87E36D221F6690700A854F6 /* main.m in Sources */,
+				C87E36F621F66E0500A854F6 /* PinchZoomViewController.m in Sources */,
 				C87E36C421F6690600A854F6 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
